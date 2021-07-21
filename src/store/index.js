@@ -18,20 +18,28 @@ export default new Vuex.Store({
     // unlike mutations, actions can be asynchronous (async/await; can be used to fetch data)
     actions: {
         async fetchAddImg({ commit }) {
-            // this functions fetches the data from the dog ceo api and adds it to `imgUrls` using a mutation
-            const res = await fetch("https://dog.ceo/api/breeds/image/random");
-            const data = await res.json();
-            commit('addImgUrl', data.message);
+            try {
+                // this functions fetches the data from the dog ceo api and adds it to `imgUrls` using a mutation
+                const res = await fetch(
+                    "https://dog.ceo/api/breeds/image/random"
+                );
+                const data = await res.json();
+                commit("addImgUrl", data.message);
+            } catch (err) {
+                console.error(err);
+            }
         },
     },
     // getters are used to return a specific selection/modification of the state
-    // e.g. you want to filter specific values inside the state, or modify them before 
+    // e.g. you want to filter specific values inside the state, or modify them before
     // the vue component gets it
     getters: {
         // dogBreeds is a getter that returns only the dog breed type of each image Url
-        dogBreeds: state => {
-            return state.imgUrls.map(imgUrl => imgUrl.slice(30).split('/')[0])
+        dogBreeds: (state) => {
+            return state.imgUrls.map(
+                (imgUrl) => imgUrl.slice(30).split("/")[0]
+            );
             // utilize fancy string methods to get dog breed name from url
-        }
-    }
+        },
+    },
 });
