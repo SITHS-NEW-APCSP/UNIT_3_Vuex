@@ -1,7 +1,24 @@
 <template>
   <div class="viewer">
     <!-- display each generated url as an image on the viewer page -->
-    <img v-for="imgUrl in imgUrls" :key="imgUrl" :src="imgUrl" />
+    <div class="container">
+      <div class="sub-container">
+        <h2>Dogs</h2>
+        <img
+          v-for="dogImgUrl in dogImgUrls"
+          :key="dogImgUrl"
+          :src="dogImgUrl"
+        />
+      </div>
+      <div class="sub-container">
+        <h2>Cats</h2>
+        <img
+          v-for="catImgUrl in catImgUrls"
+          :key="catImgUrl"
+          :src="catImgUrl"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -9,12 +26,25 @@
 export default {
   name: "Viewer",
   computed: {
-    imgUrls() {
-      return this.$store.state.imgUrls;
+    dogImgUrls() {
+      return this.$store.state.dogs.dogImgUrls;
+    },
+    catImgUrls() {
+      return this.$store.state.cats.catImgUrls;
     },
   },
 };
 </script>
 
 <style>
+.container {
+  display: flex;
+}
+.sub-container {
+  flex-basis: 100%;
+  flex-grow: 1;
+}
+img {
+  max-width: 100%;
+}
 </style>
